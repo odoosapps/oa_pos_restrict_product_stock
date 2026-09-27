@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="oa_pos_restrict_product_stock.ProductCard" t-inherit="point_of_sale.ProductCard" t-inherit-mode="extension">
+        <xpath expr="//div[hasclass('product-content')]" position="after">
+            <t t-if="(this.env &amp;&amp; this.env.services &amp;&amp; this.env.services.pos &amp;&amp; this.env.services.pos.config &amp;&amp; this.env.services.pos.config.show_pos_stock) || (env &amp;&amp; env.services &amp;&amp; env.services.pos &amp;&amp; env.services.pos.config &amp;&amp; env.services.pos.config.show_pos_stock)">
+                <t t-set="posConfig" t-value="(this.env &amp;&amp; this.env.services &amp;&amp; this.env.services.pos &amp;&amp; this.env.services.pos.config) || (env &amp;&amp; env.services &amp;&amp; env.services.pos &amp;&amp; env.services.pos.config)"/>
+                <t t-if="posConfig.stock_check_type == 'on_hand'">
+                    <div id="oa_qty_display"
+                         t-attf-class="oa_stock_badge_onhand #{props.product.qty_available lte 0 ? 'oa_stock_depleted' : ''}">
+                        <t t-esc="props.product.qty_available"/>
+                    </div>
+                </t>
+                <t t-if="posConfig.stock_check_type == 'forecast'">
+                    <div id="oa_virtual_display"
+                         t-attf-class="oa_stock_badge_forecast #{props.product.virtual_available lte 0 ? 'oa_stock_depleted' : ''}">
+                        <t t-esc="props.product.virtual_available"/>
+                    </div>
+                </t>
+                <t t-if="posConfig.stock_check_type == 'both_qty'">
+                    <div id="oa_qty_display"
+                         t-attf-class="oa_stock_badge_onhand #{props.product.qty_available lte 0 ? 'oa_stock_depleted' : ''}">
+                        <t t-esc="props.product.qty_available"/>
+                    </div>
+                    <div id="oa_virtual_display"
+                         t-attf-class="oa_stock_badge_forecast #{props.product.virtual_available lte 0 ? 'oa_stock_depleted' : ''}">
+                        <t t-esc="props.product.virtual_available"/>
+                    </div>
+                </t>
+            </t>
+        </xpath>
+    </t>
+
+    <t t-inherit="point_of_sale.Orderline" t-inherit-mode="extension">
+        <xpath expr="//div[hasclass('product-price')]" position="after">
+            <button t-if="props.mode === 'display' and !line.combo_parent_id"
+                    class="btn btn-link oa_orderline_decrement"
+                    t-on-click.stop="decreaseQuantity"
+                    title="Decrease quantity"
+                    aria-label="Decrease quantity">−</button>
+        </xpath>
+    </t>
+
+    <t t-inherit="point_of_sale.ControlButtons" t-inherit-mode="extension">
+        <xpath expr="//InternalNoteButton" position="after">
+            <button t-if="!props.showRemainingButtons and currentOrder and !currentOrder.isEmpty()"
+                    t-att-class="buttonClass"
+                    t-on-click="removeAllLines">Remove All Line</button>
+        </xpath>
+    </t>
+</templates>
