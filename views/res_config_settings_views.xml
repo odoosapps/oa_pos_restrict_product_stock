@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- View extension for POS stock restriction settings -->
+    <record id="oa_res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.oa.pos.stock</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="point_of_sale.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//block[@id='pos_interface_section']" position="after">
+                <block title="Odoos POS Stock Restrictions" id="oa_stock_config_section">
+                    <div class="col-12 col-lg-6 o_setting_box">
+                        <div class="o_setting_left_pane">
+                            <field name="show_pos_stock" readonly="False"/>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label for="show_pos_stock"/>
+                            <div class="text-muted">
+                                Display live stock quantity on product tiles based on chosen stock type.
+                            </div>
+                        </div>
+                        <br/>
+                        <div>
+                            <div class="o_setting_left_pane">
+                                <field name="restrict_out_of_stock" readonly="False"/>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label for="restrict_out_of_stock"/>
+                                <div class="text-muted">
+                                    Restrict or warn cashiers when adding out-of-stock products to cart.
+                                </div>
+                            </div>
+                            <br/>
+                            <div class="o_setting_right_pane" invisible="not show_pos_stock or not restrict_out_of_stock">
+                                <label for="stock_check_type"/>
+                                <div class="content-group">
+                                    <div class="mt16">
+                                        <field name="stock_check_type" class="o_light_label" widget="radio" readonly="False"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </block>
+            </xpath>
+        </field>
+    </record>
+</odoo>
