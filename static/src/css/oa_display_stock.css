@@ -1,0 +1,57 @@
+.oa_stock_badge_onhand {
+    background: #714B67;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 30px;
+    height: 20px;
+    border-radius: 3px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 14px;
+    color: white;
+}
+
+.oa_stock_badge_forecast {
+    background: #017e84;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 30px;
+    height: 20px;
+    border-radius: 3px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 14px;
+    color: white;
+}
+
+.oa_stock_depleted {
+    background: #808080 !important;
+}
+
+.oa_orderline_decrement {
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 28px;
+    width: 28px;
+    height: 28px;
+    margin-left: 0.5rem;
+    padding: 0 !important;
+    border: 1px solid #dc3545 !important;
+    border-radius: 4px;
+    background: #fff5f5 !important;
+    color: #dc3545 !important;
+    font-size: 1.15rem;
+    font-weight: 700;
+    line-height: 1;
+    text-decoration: none !important;
+    cursor: pointer;
+}
+
+.oa_orderline_decrement:hover,
+.oa_orderline_decrement:focus {
+    background: #dc3545 !important;
+    color: #fff !important;
+}
